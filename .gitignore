@@ -1,0 +1,10 @@
+# Files Vim/Neovim swap
+*.swp
+*.swo
+*.swx
+*~
+*.bak
+
+# .cache/
+# Session.vim
+# undodir/
