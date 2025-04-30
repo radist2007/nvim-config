@@ -34,3 +34,4 @@ vim.opt.pumheight = 10 -- Макс. висота спливаючого меню
 
 -- Встановлюємо спрощений набір опцій для сесії, щоб уникнути помилки E474
 -- vim.opt.sessionoptions = "buffers,curdir,localoptions,tabpages,winsize"
+vim.opt.sessionoptions = "buffers,curdir,localoptions,tabpages,winsize"
