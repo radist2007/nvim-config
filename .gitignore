@@ -1,0 +1,17 @@
+# /home/radist/.config/nvim/.gitignore
+
+# Файли Vim/Neovim swap/backup
+*.swp
+*.swo
+*.swx
+*~
+*.bak
+
+# Директорія для Undo (якщо використовуєш)
+# undodir/
+
+# Інші можливі тимчасові файли/директорії
+*.log
+.cache/
+# data/
+# session/
