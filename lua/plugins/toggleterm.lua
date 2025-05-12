@@ -10,6 +10,7 @@ return {
     direction = "float", -- Зміни на 'horizontal'/'vertical', якщо хочеш
     terminal_mappings = true, -- Потрібно для виходу по Esc
     insert_mappings = true, -- Дозволити мапінги в режимі вставки
+    -- cwd = vim.fn.getcwd(),
     -- ... інші опції ...
   },
 }
