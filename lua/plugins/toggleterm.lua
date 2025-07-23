@@ -1,16 +1,27 @@
--- lua/plugins/toggleterm.lua
--- TODO: розглянути варіан ці стандартним терміналом <liader>fT прблема з незручним виходом з терміналу
-
+-- Налаштування для відкриття по центру
 return {
   "akinsho/toggleterm.nvim",
-  version = "*", -- Або вкажи конкретну версію, якщо треба
-  cmd = "ToggleTerm", -- <<< Важливо для реєстрації команди
+  version = "*",
   opts = {
-    -- Тут твої бажані налаштування ToggleTerm, наприклад:
-    direction = "float", -- Зміни на 'horizontal'/'vertical', якщо хочеш
-    terminal_mappings = true, -- Потрібно для виходу по Esc
-    insert_mappings = true, -- Дозволити мапінги в режимі вставки
-    -- cwd = vim.fn.getcwd(),
-    -- ... інші опції ...
+    open_mapping = [[<c-\>]],
+    hide_numbers = true,
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = 2,
+    start_in_insert = true,
+    insert_mappings = true,
+    terminal_mappings = true,
+    persist_size = true,
+    direction = "float",
+    close_on_exit = true,
+    shell = vim.o.shell,
+    float_opts = {
+      border = "curved",
+      winblend = 0,
+      highlights = {
+        border = "Normal",
+        background = "Normal",
+      },
+    },
   },
 }
