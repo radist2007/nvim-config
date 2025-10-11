@@ -3,7 +3,7 @@
 return {
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       -- Список LSP серверів, які мають бути встановлені Mason
       ensure_installed = {

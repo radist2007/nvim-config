@@ -35,3 +35,50 @@ vim.keymap.set("n", "<F7>", function()
   -- msg:gsub("'", "''") екранує одинарні лапки
   print(msg) -- Також вивести у :messages через print для надійності
 end, { noremap = true, silent = true, desc = "Print current buffer filetype" })
+
+-- Персональна шпаргалка по гарячих клавішах
+map("n", "<leader>ch", function()
+  -- Текст шпаргалки
+  local lines = {
+    " СПАРГАЛКА ",
+    "──────────────────",
+    " <leader>uz - Дзен-режим",
+    " <leader>uD - Затемнення неактивного коду",
+    " <leader>ua - Увімк./Вимк. анімації",
+    " Ctrl+\\ : термінал по центру (floating)",
+    " Ctrl+/ : термінал знизу (Snacks)",
+    " Space+tr : термінал справа (ToggleTerm)",
+    "──────────────────",
+    " Натисніть q, щоб закрити",
+  }
+
+  -- Створюємо 'scratch' буфер (без файлу, тимчасовий)
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+  -- Розраховуємо розміри та позицію вікна, щоб було по центру
+  local width = 0
+  for _, line in ipairs(lines) do
+    width = math.max(width, #line)
+  end
+  width = width + 4 -- Додаємо відступи
+  local height = #lines + 2
+  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - width) / 2)
+
+  -- Створюємо спливаюче вікно
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    row = row,
+    col = col,
+    style = "minimal",
+    border = "rounded",
+  })
+
+  -- Мапінг для закриття вікна по клавіші 'q'
+  vim.keymap.set("n", "q", function()
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf, silent = true })
+end, { desc = "Show personal keymap cheatsheet" })

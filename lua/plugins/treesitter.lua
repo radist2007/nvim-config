@@ -34,8 +34,5 @@ return {
       -- opts.highlight = { enable = true }
       -- opts.indent = { enable = true }
     end,
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
   },
 } -- Кінець return
