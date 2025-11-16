@@ -23,18 +23,23 @@ end, { desc = "Terminal Right" })
 map("n", "<S-l>", ":bnext<CR>", opts) -- Наступний буфер (Shift+L)
 map("n", "<S-h>", ":bprevious<CR>", opts) -- Попередній буфер (Shift+H)
 
--- Тимчасовий мапінг для діагностики filetype
-vim.keymap.set("n", "<F7>", function()
-  local bufnr = vim.api.nvim_get_current_buf() -- Отримуємо номер поточного буфера
-  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype") -- Отримуємо його filetype
-  local bufname = vim.api.nvim_buf_get_name(bufnr) -- Отримуємо ім'я буфера
-  local msg = string.format("DEBUG INFO -- Buffer: %d, Name: '%s', Filetype: '%s'", bufnr, bufname, ft)
+-- ========================================
+-- CodeCompanion (Claude AI) keymaps
+-- ========================================
+-- Чат з Claude
+map("n", "<leader>ai", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Toggle Claude Chat" })
+map("v", "<leader>ai", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Toggle Claude Chat" })
 
-  vim.cmd("echohl None") -- Очистити попереднє підсвічування повідомлень
-  vim.cmd("echomsg '" .. msg:gsub("'", "''") .. "'") -- Вивести повідомлення і додати в :messages
-  -- msg:gsub("'", "''") екранує одинарні лапки
-  print(msg) -- Також вивести у :messages через print для надійності
-end, { noremap = true, silent = true, desc = "Print current buffer filetype" })
+-- Додати виділене до чату
+map("v", "<leader>aa", "<cmd>CodeCompanionChat Add<cr>", { desc = "Add Selection to Chat" })
+
+-- Inline assistant - виділи код і попроси щось зробити
+map("n", "<leader>ac", "<cmd>CodeCompanion<cr>", { desc = "Inline Claude Assistant" })
+map("v", "<leader>ac", "<cmd>CodeCompanion<cr>", { desc = "Inline Claude Assistant" })
+
+-- Швидкі дії (actions)
+map("n", "<leader>ax", "<cmd>CodeCompanionActions<cr>", { desc = "Claude Actions" })
+map("v", "<leader>ax", "<cmd>CodeCompanionActions<cr>", { desc = "Claude Actions" })
 
 -- Персональна шпаргалка по гарячих клавішах
 map("n", "<leader>ch", function()
@@ -48,6 +53,12 @@ map("n", "<leader>ch", function()
     " Ctrl+\\ : термінал по центру (floating)",
     " Ctrl+/ : термінал знизу (Snacks)",
     " Space+tr : термінал справа (ToggleTerm)",
+    "──────────────────",
+    " CLAUDE AI:",
+    " <leader>ai - Чат з Claude (toggle)",
+    " <leader>ac - Inline асистент",
+    " <leader>ax - Дії Claude",
+    " <leader>aa - Додати до чату (visual)",
     "──────────────────",
     " Натисніть q, щоб закрити",
   }

@@ -11,7 +11,7 @@ return {
         "shfmt",
         "phpcbf",
         "prettier",
-        -- Додай сюди інші форматери/лінтери, якщо потрібно
+        "djlint", -- Linter для Twig (та інших HTML templates)
       },
     },
   },
