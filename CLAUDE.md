@@ -127,3 +127,25 @@ Language support is split across multiple files:
 - **Git**: Required for lazy.nvim plugin management
 - **Node.js**: Required for several LSP servers (typescript, html, css, json)
 - **PHP**: Required for intelephense LSP server
+- **fzf**: Required for fzf-lua picker (version >= 0.53.0, recommended 0.67.0+)
+  - Installed to: `~/.local/bin/fzf`
+  - System version (apt) is outdated, using manual installation
+  - PATH configured in `~/.bashrc` to prioritize `~/.local/bin`
+
+## Recent Optimizations (LazyVim 14.x - 2025)
+
+### Performance Improvements
+- **Lazy Loading**: Enabled `lazy = true` in defaults for faster Neovim startup
+- **Exception**: auto-session has `lazy = false` to ensure session restoration works correctly
+
+### Picker Migration
+- **Switched from Telescope to fzf-lua** (LazyVim 14.x default, better performance)
+- Telescope disabled via `enabled = false` in lua/plugins/fzf.lua
+- `vim.g.lazyvim_picker = "fzf"` set in options.lua
+- Integration with Trouble.nvim: Press `Ctrl+t` in fzf to open results in Trouble
+
+### Key Bindings
+- `<leader>ff` - Find files (fzf-lua)
+- `<leader>fg` - Grep text (fzf-lua)
+- `<leader>fb` - Open buffers (fzf-lua)
+- `<leader>ch` - Personal cheatsheet (custom)
