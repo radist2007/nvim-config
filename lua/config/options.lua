@@ -4,6 +4,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- Встановлюємо fzf-lua як дефолтний picker (LazyVim 14.x+)
+vim.g.lazyvim_picker = "fzf"
+
 vim.opt.number = true -- Показувати номери рядків
 vim.opt.relativenumber = true -- Показувати відносні номери рядків
 vim.opt.tabstop = 2 -- Розмір табуляції = 2 пробіли

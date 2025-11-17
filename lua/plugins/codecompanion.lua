@@ -5,7 +5,8 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- Опціонально, для вибору промптів
+      -- CodeCompanion підтримує як telescope, так і fzf-lua для вибору промптів
+      -- LazyVim автоматично визначить який picker використовується
       {
         "MeanderingProgrammer/render-markdown.nvim", -- Для гарного рендерингу markdown в чаті
         ft = { "markdown", "codecompanion" },
@@ -28,7 +29,7 @@ return {
           anthropic = function()
             return require("codecompanion.adapters").extend("anthropic", {
               env = {
-                api_key = "ANTHROPIC_API_KEY",
+                api_key = "cmd:cat ~/.config/nvim/.anthropic_key 2>/dev/null || echo ''",
               },
               schema = {
                 model = {
@@ -54,6 +55,7 @@ return {
         },
         opts = {
           log_level = "DEBUG", -- TRACE | DEBUG | ERROR | INFO
+          language = "Ukrainian", -- Мова для відповідей (не для коду)
         },
       })
     end,

@@ -2,6 +2,8 @@
 return {
   {
     "rmagatti/auto-session",
+    lazy = false, -- ВАЖЛИВО: завантажувати одразу при старті для відновлення сесії
+    priority = 50, -- Завантажувати рано, але після core плагінів LazyVim
     opts = {
       log_level = "warn",
       auto_session_suppress_dirs = { "~/", "/" },
