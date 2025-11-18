@@ -2,6 +2,10 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  lazy = false, -- Завантажувати одразу, щоб open_mapping працював
+  keys = {
+    { "<c-\\>", mode = { "n", "t" }, desc = "Toggle floating terminal" },
+  },
   opts = {
     open_mapping = [[<c-\>]],
     hide_numbers = true,
