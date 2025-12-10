@@ -50,7 +50,7 @@ Language support is split across multiple files:
 **Terminal Integration:**
 - Three terminal options configured:
   1. `Ctrl+\` - Floating terminal (ToggleTerm, center of screen)
-  2. `Ctrl+/` - Bottom terminal (Snacks.nvim built-in)
+  2. `Ctrl+/` - Bottom terminal (Snacks.nvim built-in) - works in both normal and terminal mode
   3. `Space+tr` - Right-side vertical terminal (ToggleTerm, 80 columns wide)
 - Exit terminal mode: `Ctrl+o`
 
@@ -121,6 +121,24 @@ Language support is split across multiple files:
 
 5. **Ukrainian Language Support**: Comments and cheatsheet are in Ukrainian, but code and configuration keys are in English
 
+6. **VS Code Compatibility**: Configuration includes commented-out VS Code extras import (lua/config/lazy.lua:33-34) that can be enabled for nvim integration with VS Code
+
+## Modifying This Configuration
+
+When adding or modifying plugins:
+1. Create or edit files in `lua/plugins/` directory
+2. Each file should return a Lua table with plugin specs
+3. Use `opts = function(_, opts)` pattern to extend LazyVim defaults rather than replace them
+4. After changes, run `:Lazy sync` to install/update plugins
+5. Use `:checkhealth` to diagnose issues
+
+When modifying language support:
+- Add Treesitter parsers in `lua/plugins/treesitter.lua`
+- Add LSP servers in `lua/plugins/lsp-servers.lua`
+- Add formatters/linters in `lua/plugins/mason.lua`
+- Configure formatters in `lua/plugins/formatting.lua`
+- Add filetype detection in `lua/plugins/filetypes.lua`
+
 ## Environment Requirements
 
 - **ANTHROPIC_API_KEY**: Required environment variable for CodeCompanion.nvim (Claude AI integration)
@@ -138,14 +156,25 @@ Language support is split across multiple files:
 - **Lazy Loading**: Enabled `lazy = true` in defaults for faster Neovim startup
 - **Exception**: auto-session has `lazy = false` to ensure session restoration works correctly
 
-### Picker Migration
-- **Switched from Telescope to fzf-lua** (LazyVim 14.x default, better performance)
-- Telescope disabled via `enabled = false` in lua/plugins/fzf.lua
-- `vim.g.lazyvim_picker = "fzf"` set in options.lua
-- Integration with Trouble.nvim: Press `Ctrl+t` in fzf to open results in Trouble
+### Dual Picker Setup
+- **Primary: fzf-lua** (LazyVim 14.x default, better performance)
+- **Secondary: Telescope** (better preview and navigation in results)
+- Both enabled simultaneously with different keybindings
+- `vim.g.lazyvim_picker = "fzf"` set in options.lua (default picker)
 
-### Key Bindings
-- `<leader>ff` - Find files (fzf-lua)
-- `<leader>fg` - Grep text (fzf-lua)
-- `<leader>fb` - Open buffers (fzf-lua)
+### Key Bindings - Pickers
+**fzf-lua (fast search, default bindings):**
+- `<leader>ff` - Find files
+- `<leader>/` or `<leader>fg` - Grep text
+- `<leader>fb` - Open buffers
+
+**Telescope (rich preview, prefix: `<leader>t`):**
+- `<leader>tf` - Find files with preview
+- `<leader>tg` - Grep with scrollable preview
+- `<leader>tb` - Buffers with preview
+- `<leader>ts` - LSP symbols
+- `<leader>td` - Diagnostics
+- `<leader>th` - Help tags
+
+**Other:**
 - `<leader>ch` - Personal cheatsheet (custom)

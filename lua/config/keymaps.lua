@@ -12,6 +12,9 @@ local opts = { noremap = true, silent = true }
 
 -- Вихід з терміналу в нормальний режим
 map("t", "<C-o>", "<C-\\><C-N>", { noremap = true, desc = "Exit Terminal Mode" })
+map("t", "<c-/>", function()
+  Snacks.terminal()
+end, { desc = "Toggle Terminal" })
 
 -- Термінал справа через leader (Space+tr)
 map("n", "<leader>tr", function()
@@ -54,11 +57,18 @@ map("n", "<leader>ch", function()
     " Ctrl+/ : термінал знизу (Snacks)",
     " Space+tr : термінал справа (ToggleTerm)",
     "──────────────────",
-    " FZF-LUA (пошук):",
+    " FZF-LUA (швидкий пошук):",
     " <leader>ff - Знайти файли",
-    " <leader>fg - Пошук тексту (grep)",
+    " <leader>/ або <leader>fg - Пошук тексту",
     " <leader>fb - Відкриті буфери",
-    " Ctrl+t (у fzf) - Відкрити в Trouble",
+    "──────────────────",
+    " TELESCOPE (детальний preview):",
+    " <leader>tf - Знайти файли",
+    " <leader>tg - Пошук тексту (grep)",
+    " <leader>tb - Відкриті буфери",
+    " <leader>ts - Символи (LSP)",
+    " <leader>td - Діагностика",
+    " <leader>th - Довідка",
     "──────────────────",
     " CLAUDE AI:",
     " <leader>ai - Чат з Claude (toggle)",
