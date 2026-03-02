@@ -1,6 +1,7 @@
 {
   "extras": [
-
+    "ai.claudecode",
+    "lazyvim.plugins.extras.ai.claudecode"
   ],
   "install_version": 8,
   "news": {

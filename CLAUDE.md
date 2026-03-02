@@ -44,6 +44,9 @@ Language support is split across multiple files:
   - Ensures installation of: stylua, shellcheck, shfmt, phpcbf, prettier
 - **`lua/plugins/formatting.lua`** - Conform.nvim configuration for Twig files
 - **`lua/plugins/filetypes.lua`** - Custom filetype detection (*.twig files)
+- **`lua/plugins/linting.lua`** - nvim-lint: djlint linter for Twig files
+- **`lua/plugins/trouble.lua`** - trouble.nvim for LSP diagnostics/quickfix UI
+- **`lua/plugins/lualine.lua`** - lualine disabled (empty spec, using LazyVim defaults)
 
 ### Custom Features
 
@@ -59,14 +62,18 @@ Language support is split across multiple files:
 - `persistence.nvim` is disabled (see lua/plugins/persistence.lua)
 - Session options configured in options.lua: `buffers,curdir,localoptions,tabpages,winsize`
 
-**AI Integration (CodeCompanion):**
-- Uses Anthropic Claude API (reads from `ANTHROPIC_API_KEY` env var)
-- Default model: `claude-sonnet-4-20250514`
-- Keybindings under `<leader>a` prefix:
-  - `<leader>ai` - Toggle Claude chat
-  - `<leader>ac` - Inline assistant
-  - `<leader>ax` - Quick actions
-  - `<leader>aa` - Add selection to chat (visual mode)
+**AI Integration (claudecode.nvim — LazyVim extra `ai.claudecode`):**
+- Підключає Claude Code CLI (`~/.local/bin/claude`) до Neovim через WebSocket MCP протокол
+- Enabled via `lazyvim.json` extras: `"ai.claudecode"`
+- Keybindings під `<leader>a` префіксом (визначені LazyVim extra):
+  - `<leader>ac` - Toggle Claude Code термінал
+  - `<leader>af` - Focus вікно Claude
+  - `<leader>ar` - Resume попередню сесію
+  - `<leader>aC` - Continue сесію
+  - `<leader>ab` - Додати поточний буфер до контексту
+  - `<leader>as` - Надіслати виділення до Claude (visual mode)
+  - `<leader>aa` - Прийняти diff
+  - `<leader>ad` - Відхилити diff
 
 ## Common Commands
 
@@ -115,7 +122,7 @@ Language support is split across multiple files:
 
 2. **Session Management**: Auto-session configured with pre_save_cmds that uses Lua API to safely close neo-tree before saving sessions, preventing E474 errors
 
-3. **Dual Completion System**: Both blink.cmp (LazyVim default) and nvim-cmp are available, but nvim-cmp is disabled (enable = false in cmp.lua)
+3. **Completion System**: blink.cmp (LazyVim default) is used; nvim-cmp is not configured
 
 4. **Performance Optimizations**: Several built-in Vim plugins are disabled in lazy.lua performance section (gzip, tarPlugin, tohtml, tutor, zipPlugin)
 
@@ -141,7 +148,7 @@ When modifying language support:
 
 ## Environment Requirements
 
-- **ANTHROPIC_API_KEY**: Required environment variable for CodeCompanion.nvim (Claude AI integration)
+- **Claude Code CLI**: Встановлений в `~/.local/bin/claude`, потрібен для `claudecode.nvim`
 - **Git**: Required for lazy.nvim plugin management
 - **Node.js**: Required for several LSP servers (typescript, html, css, json)
 - **PHP**: Required for intelephense LSP server

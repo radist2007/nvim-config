@@ -26,23 +26,15 @@ end, { desc = "Terminal Right" })
 map("n", "<S-l>", ":bnext<CR>", opts) -- Наступний буфер (Shift+L)
 map("n", "<S-h>", ":bprevious<CR>", opts) -- Попередній буфер (Shift+H)
 
--- ========================================
--- CodeCompanion (Claude AI) keymaps
--- ========================================
--- Чат з Claude
-map("n", "<leader>ai", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Toggle Claude Chat" })
-map("v", "<leader>ai", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Toggle Claude Chat" })
-
--- Додати виділене до чату
-map("v", "<leader>aa", "<cmd>CodeCompanionChat Add<cr>", { desc = "Add Selection to Chat" })
-
--- Inline assistant - виділи код і попроси щось зробити
-map("n", "<leader>ac", "<cmd>CodeCompanion<cr>", { desc = "Inline Claude Assistant" })
-map("v", "<leader>ac", "<cmd>CodeCompanion<cr>", { desc = "Inline Claude Assistant" })
-
--- Швидкі дії (actions)
-map("n", "<leader>ax", "<cmd>CodeCompanionActions<cr>", { desc = "Claude Actions" })
-map("v", "<leader>ax", "<cmd>CodeCompanionActions<cr>", { desc = "Claude Actions" })
+-- Claude Code keymaps визначені в LazyVim extra ai.claudecode
+-- <leader>ac - Toggle Claude Code
+-- <leader>af - Focus вікно
+-- <leader>ar - Resume сесію
+-- <leader>aC - Continue сесію
+-- <leader>ab - Додати поточний буфер
+-- <leader>as - Надіслати виділення (visual)
+-- <leader>aa - Прийняти diff
+-- <leader>ad - Відхилити diff
 
 -- Персональна шпаргалка по гарячих клавішах
 map("n", "<leader>ch", function()
@@ -70,11 +62,14 @@ map("n", "<leader>ch", function()
     " <leader>td - Діагностика",
     " <leader>th - Довідка",
     "──────────────────",
-    " CLAUDE AI:",
-    " <leader>ai - Чат з Claude (toggle)",
-    " <leader>ac - Inline асистент",
-    " <leader>ax - Дії Claude",
-    " <leader>aa - Додати до чату (visual)",
+    " CLAUDE CODE:",
+    " <leader>ac - Toggle Claude Code",
+    " <leader>af - Focus вікно",
+    " <leader>ar - Resume сесію",
+    " <leader>ab - Додати буфер до контексту",
+    " <leader>as - Надіслати виділення (visual)",
+    " <leader>aa - Прийняти diff",
+    " <leader>ad - Відхилити diff",
     "──────────────────",
     " Натисніть q, щоб закрити",
   }
