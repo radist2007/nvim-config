@@ -52,7 +52,7 @@ Language support is split across multiple files:
 
 **Terminal Integration:**
 - Three terminal options configured:
-  1. `Ctrl+\` - Floating terminal (ToggleTerm, center of screen)
+  1. `Ctrl+\` - Floating terminal (ToggleTerm, center of screen) — `lazy = false` so open_mapping works immediately
   2. `Ctrl+/` - Bottom terminal (Snacks.nvim built-in) - works in both normal and terminal mode
   3. `Space+tr` - Right-side vertical terminal (ToggleTerm, 80 columns wide)
 - Exit terminal mode: `Ctrl+o`
@@ -64,7 +64,7 @@ Language support is split across multiple files:
 
 **AI Integration (claudecode.nvim — LazyVim extra `ai.claudecode`):**
 - Підключає Claude Code CLI (`~/.local/bin/claude`) до Neovim через WebSocket MCP протокол
-- Enabled via `lazyvim.json` extras: `"ai.claudecode"`
+- Enabled via `lazyvim.json` extras (note: currently has duplicate entries `"ai.claudecode"` and `"lazyvim.plugins.extras.ai.claudecode"` — keep only one)
 - Keybindings під `<leader>a` префіксом (визначені LazyVim extra):
   - `<leader>ac` - Toggle Claude Code термінал
   - `<leader>af` - Focus вікно Claude
@@ -78,42 +78,25 @@ Language support is split across multiple files:
 ## Common Commands
 
 ### Plugin Management
-```bash
-# Sync plugins (install/update/clean)
-:Lazy sync
-
-# Check plugin status
-:Lazy
-
-# Update specific plugin
-:Lazy update <plugin-name>
+```
+:Lazy sync          " install/update/clean
+:Lazy               " check plugin status
+:Lazy update <name> " update specific plugin
 ```
 
 ### LSP and Tools Management
-```bash
-# Open Mason UI to manage LSP servers, formatters, linters
-:Mason
-
-# Install LSP server
-:MasonInstall <server-name>
-
-# Update all Mason packages
-:MasonUpdate
+```
+:Mason              " manage LSP servers, formatters, linters
+:MasonInstall <name>
+:MasonUpdate        " update all Mason packages
 ```
 
-### Diagnostics and Testing
-```bash
-# Check Neovim health (useful for troubleshooting)
-:checkhealth
-
-# Check LazyVim configuration
-:LazyHealth
-
-# View LSP info for current buffer
-:LspInfo
-
-# View Treesitter info
-:TSInstallInfo
+### Diagnostics
+```
+:checkhealth        " check Neovim health
+:LazyHealth         " check LazyVim configuration
+:LspInfo            " LSP info for current buffer
+:TSInstallInfo      " Treesitter parser info
 ```
 
 ## Key Architectural Decisions
@@ -124,7 +107,7 @@ Language support is split across multiple files:
 
 3. **Completion System**: blink.cmp (LazyVim default) is used; nvim-cmp is not configured
 
-4. **Performance Optimizations**: Several built-in Vim plugins are disabled in lazy.lua performance section (gzip, tarPlugin, tohtml, tutor, zipPlugin)
+4. **Performance Optimizations**: Several built-in Vim plugins are disabled in lazy.lua performance section (gzip, tarPlugin, tohtml, tutor, zipPlugin). Lazy loading defaults to `lazy = true` for all custom plugins, with exceptions: `auto-session` and `toggleterm` use `lazy = false`
 
 5. **Ukrainian Language Support**: Comments and cheatsheet are in Ukrainian, but code and configuration keys are in English
 
@@ -157,31 +140,13 @@ When modifying language support:
   - System version (apt) is outdated, using manual installation
   - PATH configured in `~/.bashrc` to prioritize `~/.local/bin`
 
-## Recent Optimizations (LazyVim 14.x - 2025)
+## Picker Setup
 
-### Performance Improvements
-- **Lazy Loading**: Enabled `lazy = true` in defaults for faster Neovim startup
-- **Exception**: auto-session has `lazy = false` to ensure session restoration works correctly
+- **Primary: fzf-lua** (better performance) — `vim.g.lazyvim_picker = "fzf"` set in `options.lua`
+- **Secondary: Telescope** (better preview) — enabled simultaneously with `<leader>t` prefix
 
-### Dual Picker Setup
-- **Primary: fzf-lua** (LazyVim 14.x default, better performance)
-- **Secondary: Telescope** (better preview and navigation in results)
-- Both enabled simultaneously with different keybindings
-- `vim.g.lazyvim_picker = "fzf"` set in options.lua (default picker)
+**fzf-lua (default bindings):** `<leader>ff` files, `<leader>/` or `<leader>fg` grep, `<leader>fb` buffers
 
-### Key Bindings - Pickers
-**fzf-lua (fast search, default bindings):**
-- `<leader>ff` - Find files
-- `<leader>/` or `<leader>fg` - Grep text
-- `<leader>fb` - Open buffers
+**Telescope (`<leader>t` prefix):** `tf` files, `tg` grep, `tb` buffers, `ts` LSP symbols, `td` diagnostics, `th` help tags
 
-**Telescope (rich preview, prefix: `<leader>t`):**
-- `<leader>tf` - Find files with preview
-- `<leader>tg` - Grep with scrollable preview
-- `<leader>tb` - Buffers with preview
-- `<leader>ts` - LSP symbols
-- `<leader>td` - Diagnostics
-- `<leader>th` - Help tags
-
-**Other:**
-- `<leader>ch` - Personal cheatsheet (custom)
+**Other:** `<leader>ch` — personal cheatsheet popup (defined inline in `keymaps.lua`)
