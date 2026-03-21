@@ -28,6 +28,9 @@ vim.opt.smartcase = true -- Чутливий до регістру, якщо є 
 vim.opt.hlsearch = true -- Підсвічувати результати пошуку
 vim.opt.incsearch = true -- Інкрементний пошук
 
+-- Правопис:
+vim.opt.spelllang = { "en", "uk" } -- Перевірка правопису: англійська + українська
+
 -- Редагування:
 vim.opt.wrap = false -- Вимкнути перенесення рядків
 
